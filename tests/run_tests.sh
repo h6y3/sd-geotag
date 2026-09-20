@@ -11,7 +11,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 # Sourcing the script must not execute main (guarded by BASH_SOURCE check).
-# shellcheck source=../sd-geotag.sh
+# shellcheck source=sd-geotag.sh
 source ./sd-geotag.sh
 
 PASS=0

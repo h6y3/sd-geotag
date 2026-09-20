@@ -148,7 +148,7 @@ $ ./tests/run_tests.sh
 Lint with ShellCheck if you have it (`brew install shellcheck`):
 
 ```console
-$ shellcheck sd-geotag.sh tests/run_tests.sh
+$ shellcheck -x sd-geotag.sh tests/run_tests.sh
 ```
 
 ## Limitations

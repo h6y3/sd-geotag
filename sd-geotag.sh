@@ -317,11 +317,24 @@ collect_raw_files() {
   local vol="$1"
   local files=()
   local f
+  local find_args=()
+  local ext
+  local first=true
+  # Build the find expression from RAW_EXTENSIONS so the supported
+  # extensions live in exactly one place: ( -iname '*.arw' -o ... ).
+  for ext in "${RAW_EXTENSIONS[@]}"; do
+    if [ "$first" = true ]; then
+      find_args+=(\( -iname "*.${ext}")
+      first=false
+    else
+      find_args+=(-o -iname "*.${ext}")
+    fi
+  done
+  find_args+=(\))
   while IFS= read -r -d '' f; do
     files+=("$f")
   done < <(
-    find "$vol" -maxdepth 4 -type f \
-      \( -iname '*.arw' -o -iname '*.raf' -o -iname '*.dng' \) \
+    find "$vol" -maxdepth 4 -type f "${find_args[@]}" \
       -not -path '*/.Trashes/*' -print0 2>/dev/null
   )
   if [ "${#files[@]}" -eq 0 ]; then
