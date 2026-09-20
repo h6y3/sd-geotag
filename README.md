@@ -45,14 +45,30 @@ Verify with `exiftool -ver`.
 
 ```console
 $ git clone <repo-url> && cd sd-geotag
-$ chmod +x sd-geotag.sh
+$ ./install.sh
+```
+
+`install.sh` links the `sd-geotag` command into `~/.local/bin` (the
+standard user-scope bin directory on macOS and Linux), so the tool works
+from any directory. The link points into the repo, so edits apply
+immediately and re-running the installer after `git pull` is unnecessary.
+Uninstall with `./install.sh --uninstall`. No dotfiles are edited; if
+`~/.local/bin` is missing from PATH, the installer prints the exact line
+to add.
+
+Run from the repo without installing:
+
+```console
 $ ./sd-geotag.sh --help
 ```
 
 ## Usage
 
+Once installed, the command is `sd-geotag`; from the repo, use
+`./sd-geotag.sh`:
+
 ```console
-$ ./sd-geotag.sh [options]
+$ sd-geotag [options]
 ```
 
 | Option            | Effect                                                                                         |
@@ -148,7 +164,7 @@ $ ./tests/run_tests.sh
 Lint with ShellCheck if you have it (`brew install shellcheck`):
 
 ```console
-$ shellcheck -x sd-geotag.sh tests/run_tests.sh
+$ shellcheck -x sd-geotag.sh tests/run_tests.sh install.sh
 ```
 
 ## Limitations
